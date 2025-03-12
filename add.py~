@@ -1,0 +1,5 @@
+def add2(a,b):
+    c = a+b
+    return print(c)
+
+add2(2,2)

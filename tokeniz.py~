@@ -1,15 +1,16 @@
-from tokenizers import Tokenizer
-from tokenizers.models import BPE
-from tokenizers.trainers import BpeTrainer
+from io import BytesIO
+import tokenize
 
-tokenizer = Tokenizer(BPE())
-trainer = BpeTrainer(vocab_size=6000 , min_frequency=2)
+def toki_file(path_file):
+    with open(path_file,"rb") as file:
+        tokens = tokenize.tokenize(file.readline)
+        
+    
+        for token in tokens:
+            new_token=f"String:{token.string},Type:{token.type},Start:{token.start},End:{token.end}"
+            print(new_token)
+
+path_file="add.py"
+toki_file(path_file)
 
 
-
-test_data = ["my name is what", "my name is wha", "chika chika slim slady "]
-tokenizer.train_from_iterator(test_data, trainer)
-
-output = tokenizer.encode("my name is what slim chika")
-
-print(output.tokens)
