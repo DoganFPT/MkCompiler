@@ -1,4 +1,5 @@
 import sys
+import os
 
 program_filepath = sys.argv[1]
 prog_line = []
@@ -123,6 +124,14 @@ out.write("EXIT_LABEL\n")
 out.write(f"\tXOR rax, rax\n")
 out.write(f"\tCALL ExitProcess\n")
 out.close()
+
+print("Assembling data")
+os.system(f"nasm -f elf64 {asm_filepath}")
+print("Linking")
+os.system(f"gcc -o {asm_filepath[:-4]+ '.exe'} {asm_filepath[:-3]+ 'o'}")
+
+print("Run")
+os.system(f"{asm_filepath[:-4] + 'o'}")
 
 
 
